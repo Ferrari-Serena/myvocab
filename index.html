@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英语词汇学习 · Ferrariwork</title>
+<style>
+  :root {
+    --bg: #0f0f1a;
+    --card: rgba(255,255,255,0.05);
+    --text: #e0e0e0;
+    --accent1: #667eea;
+    --accent2: #f5576c;
+    --green: #4cd964;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  /* ── 背景动画 ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(102,126,234,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(245,87,108,0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(76,217,100,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* ── 内容区 ── */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  header h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  header p {
+    color: #888;
+    font-size: 0.95rem;
+  }
+
+  /* ── 项目卡片 ── */
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .card {
+    display: flex;
+    gap: 20px;
+    padding: 24px 28px;
+    border-radius: 16px;
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.3s ease;
+    align-items: center;
+  }
+
+  .card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .card-icon {
+    font-size: 2.6rem;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .card-body { flex: 1; }
+
+  .card-body h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .card-body .desc {
+    font-size: 0.85rem;
+    color: #999;
+    line-height: 1.5;
+  }
+
+  .card-body .tech {
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 6px;
+  }
+
+  .card-status {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .status-on {
+    background: rgba(76,217,100,0.15);
+    color: var(--green);
+    border: 1px solid rgba(76,217,100,0.25);
+  }
+
+  .warn-file {
+    background: rgba(255,193,7,0.08);
+    border: 1px solid rgba(255,193,7,0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #ccc;
+    display: none;  /* 默认隐藏，file:// 时 JS 显示 */
+  }
+  .warn-file strong { color: #ffc107; }
+  .warn-file code {
+    background: rgba(255,255,255,0.1);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    color: #fff;
+  }
+
+  /* ── 启动指引 ── */
+  .guide {
+    margin-top: 48px;
+    padding: 20px 24px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.85rem;
+    color: #777;
+    line-height: 1.8;
+  }
+
+  .guide code {
+    background: rgba(255,255,255,0.08);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    color: #aaa;
+  }
+
+  .guide a {
+    color: var(--accent1);
+    text-decoration: none;
+  }
+
+  .guide a:hover { text-decoration: underline; }
+
+  footer {
+    margin-top: 48px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>📖 英语词汇学习</h1>
+    <p>基于 KyleBing/english-vocabulary 词库的两个交互式学习应用</p>
+  </header>
+
+  <!-- file:// 协议警告 -->
+  <div class="warn-file" id="warn-file">
+    <strong>&#9888; 检测到 file:// 协议</strong><br>
+    以下应用使用了 ES 模块，浏览器<strong>不允许</strong>通过 <code>file://</code> 打开。<br>
+    请先运行 <code>node server.js</code>（在项目根目录），然后访问
+    <a href="http://localhost:5173/tasks2/" style="color:#667eea">http://localhost:5173/tasks2/</a>
+  </div>
+
+  <div class="projects">
+    <!-- 蚕食 -->
+    <a class="card" href="vocabulary/docs/index.html">
+      <div class="card-icon">📚</div>
+      <div class="card-body">
+        <h2>蚕食单词</h2>
+        <p class="desc">词条概览视图 — 悬停发音、点击标记已知、右键查看释义。支持初中到 SAT 全部词库。</p>
+        <p class="tech">Vue 3 · Vite 4 · Pinia · 静态构建版</p>
+      </div>
+      <span class="card-status status-on">📂 直接打开</span>
+    </a>
+
+    <!-- Word Wind -->
+    <a class="card" href="word-wind/dist/index.html">
+      <div class="card-icon">🌬️</div>
+      <div class="card-body">
+        <h2>Word Wind</h2>
+        <p class="desc">单词卡片学习 — 音标发音、释义例句、生词本、选择题/填空测试。蚕食标记已学会。</p>
+        <p class="tech">React 19 · TypeScript · Vite 7 · Supabase · 静态构建版</p>
+      </div>
+      <span class="card-status status-on">📂 直接打开</span>
+    </a>
+  </div>
+
+  <div class="guide">
+    <strong>🚀 使用说明</strong><br><br>
+    需通过 HTTP 服务器访问（应用使用 ES 模块，file:// 协议无法加载）。<br>
+    在项目根目录运行：<code>node server.js</code>，然后访问
+    <a href="http://localhost:5173/tasks2/">http://localhost:5173/tasks2/</a><br><br>
+    <strong>开发模式</strong>（修改源码时使用）：<br>
+    蚕食：<code>cd tasks2/vocabulary && npm run dev</code> → http://localhost:2000<br>
+    Word Wind：<code>cd tasks2/word-wind && npm run dev</code> → http://localhost:5173<br><br>
+    修改源码后需重新构建：<br>
+    <code>cd tasks2/vocabulary && npm run build</code>（输出到 docs/）<br>
+    <code>cd tasks2/word-wind && npm run build</code>（输出到 dist/）<br><br>
+    源码仓库：
+    <a href="https://github.com/KyleBing/vocabulary" target="_blank">蚕食</a> ·
+    <a href="https://github.com/heygsc/word-wind" target="_blank">Word Wind</a> ·
+    <a href="https://github.com/KyleBing/english-vocabulary" target="_blank">词库数据</a>
+  </div>
+
+  <footer>
+    Ferrariwork — 英语词汇学习工具集
+  </footer>
+</div>
+
+<script>
+// file:// 协议下隐藏项目卡片（ES 模块无法加载），显示警告
+if (location.protocol === 'file:') {
+  document.getElementById('warn-file').style.display = 'block';
+  document.querySelectorAll('.card').forEach(function(c) {
+    c.style.opacity = '0.4';
+    c.style.pointerEvents = 'none';
+  });
+}
+</script>
+
+</body>
+</html>
